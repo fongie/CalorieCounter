@@ -16,6 +16,7 @@ public class LoginController {
    public String hello() {
       return "hello";
    }
+
    @GetMapping("/webhome")
    public ModelAndView getWebHome() {
       ModelAndView modelAndView = new ModelAndView();
@@ -40,8 +41,7 @@ public class LoginController {
    @PostMapping("/registration")
    public ModelAndView register(String username, String password) {
       ModelAndView modelAndView = new ModelAndView();
-      UserDTO user = new UserDTO(username, password);
-      boolean registered = loginService.register(user);
+      boolean registered = loginService.register(username, password);
       if (!registered)
          return new ModelAndView("redirect:/registration?error");
       return new ModelAndView("redirect:/registration?success");

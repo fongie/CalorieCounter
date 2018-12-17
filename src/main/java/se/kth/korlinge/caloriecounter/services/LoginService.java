@@ -42,12 +42,12 @@ public class LoginService implements UserDetailsService {
 
    /**
     * Register a new user
-    * @param userDTO
+    * @param username
+    * @param password
     * @return
     */
-    public boolean register(UserDTO userDTO) {
-       String username = userDTO.getUsername();
-       String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
+    public boolean register(String username, String password) {
+       String encryptedPassword = passwordEncoder.encode(password);
 
        if (userRepository.findByUsername(username) == null) {
            User user = new User(username, encryptedPassword);
