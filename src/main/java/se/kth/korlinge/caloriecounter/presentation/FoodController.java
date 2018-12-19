@@ -3,6 +3,7 @@ package se.kth.korlinge.caloriecounter.presentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import se.kth.korlinge.caloriecounter.data.Food;
+import se.kth.korlinge.caloriecounter.services.FoodPostRequest;
 import se.kth.korlinge.caloriecounter.services.FoodService;
 
 import java.security.Principal;

@@ -1,4 +1,4 @@
-package se.kth.korlinge.caloriecounter.presentation;
+package se.kth.korlinge.caloriecounter.services;
 
 /**
  * Represents a POST request to create a new Food entity
