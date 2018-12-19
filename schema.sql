@@ -61,10 +61,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `food`;
 CREATE TABLE `food` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
     `name` varchar(200) NOT NULL,
     `calories` int(11) DEFAULT NULL,
     `protein` int(11) DEFAULT NULL,
+    user_id INT NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (user_id) REFERENCES `user`(id)
 
