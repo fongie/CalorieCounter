@@ -108,13 +108,13 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `meal`;
 CREATE TABLE `meal` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `food` int(11) NOT NULL,
+    `food_id` int(11) NOT NULL,
     `user_day_id` INTEGER NOT NULL,
     PRIMARY KEY (`id`),
-    KEY `food` (`food`),
     FOREIGN KEY (user_day_id) REFERENCES user_day(id),
-    CONSTRAINT `meal_ibfk_2` FOREIGN KEY (`food`) REFERENCES `food` (`id`)
+	FOREIGN KEY (food_id) REFERENCES food(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 --
 -- Dumping data for table `meal`

@@ -17,6 +17,13 @@ public class FoodService {
    @Autowired
    private UserRepository userRepository;
 
+   Food getFood(int id) {
+      Optional<Food> food = foodRepository.findById(id);
+      if (!food.isPresent()) {
+         throw new EntityDoesNotExistException("food", id);
+      }
+      return food.get();
+   }
    public List<Food> getAllFoods(String username) {
       List<Food> foods = new ArrayList<>();
       User user = userRepository.findByUsername(username);

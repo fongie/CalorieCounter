@@ -17,6 +17,14 @@ public class UserDayService {
    @Autowired
    private UserRepository userRepository;
 
+   UserDay getUserDay(String username, java.sql.Date date) {
+      User user = userRepository.findByUsername(username);
+      Optional<UserDay> userDay = userDayRepository.findByUserAndDate(user, date);
+      if (!userDay.isPresent()) {
+         throw new EntityDoesNotExistException("userDay", date);
+      }
+      return userDay.get();
+   }
    public List<UserDay> getAllUserDays(String username) {
       List<UserDay> userDays = new ArrayList<>();
       User user = userRepository.findByUsername(username);
@@ -24,10 +32,10 @@ public class UserDayService {
       return userDays;
    }
    //check that date doesnt already exist for this user
-   private void validateNewUserDay(User user, java.sql.Date date) {
+   private void validateUserDay(User user, java.sql.Date date) {
       Optional<UserDay> userDay = userDayRepository.findByUserAndDate(user, date);
       if (userDay.isPresent()) {
-         throw new AlreadyExistsException("orderDay", "date", date);
+         throw new AlreadyExistsException("userDay", "date", date);
       }
    }
    public UserDay addUserDay(UserDayPostRequest userDayPostRequest) {
@@ -67,7 +75,7 @@ public class UserDayService {
 
       User user = userRepository.findByUsername(userDayPostRequest.getUsername());
 
-      validateNewUserDay(user, date);
+      validateUserDay(user, date);
 
       UserDay userDay = new UserDay(
             user,
