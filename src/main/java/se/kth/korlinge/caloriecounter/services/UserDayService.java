@@ -2,6 +2,8 @@ package se.kth.korlinge.caloriecounter.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import se.kth.korlinge.caloriecounter.data.UserDay;
 import se.kth.korlinge.caloriecounter.data.User;
 import se.kth.korlinge.caloriecounter.repositories.UserDayRepository;
@@ -9,7 +11,7 @@ import se.kth.korlinge.caloriecounter.repositories.UserRepository;
 
 import java.util.*;
 
-//TODO transacstional?
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 @Service
 public class UserDayService {
    @Autowired

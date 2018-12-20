@@ -7,13 +7,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import se.kth.korlinge.caloriecounter.data.User;
-import se.kth.korlinge.caloriecounter.presentation.UserDTO;
 import se.kth.korlinge.caloriecounter.repositories.UserRepository;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 @Service
 public class LoginService implements UserDetailsService {
     @Autowired

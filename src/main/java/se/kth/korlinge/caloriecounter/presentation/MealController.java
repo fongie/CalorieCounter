@@ -10,6 +10,12 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Entry point for the /meals API.
+ * - GET /meals
+ * - POST /meals
+ * - PUT /meals/:id
+ */
 @RestController
 @RequestMapping("/meals")
 public class MealController {

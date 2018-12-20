@@ -3,6 +3,9 @@ package se.kth.korlinge.caloriecounter.services;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Exception when trying to post something that already exists.
+ */
 @ResponseStatus(value=HttpStatus.BAD_REQUEST)
 public class AlreadyExistsException extends RuntimeException {
    public AlreadyExistsException() {

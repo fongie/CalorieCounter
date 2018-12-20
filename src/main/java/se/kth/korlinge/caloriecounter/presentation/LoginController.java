@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import se.kth.korlinge.caloriecounter.services.LoginService;
 
-
+/**
+ * Entry point for authentication API
+ */
 @RestController
 public class LoginController {
 

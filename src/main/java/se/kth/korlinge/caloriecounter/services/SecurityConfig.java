@@ -1,4 +1,4 @@
-package se.kth.korlinge.caloriecounter.presentation;
+package se.kth.korlinge.caloriecounter.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +9,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import se.kth.korlinge.caloriecounter.services.LoginService;
 
+/**
+ * Configuration class for Spring security.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -27,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               .antMatchers("/registration").permitAll()
               .antMatchers("/foods").authenticated()
               .antMatchers("/userdays").authenticated()
+              .antMatchers("/meals").authenticated()
               .and()
               .formLogin()
               .loginPage("/login")
@@ -36,44 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               .logout();
 
     }
-
-    /*
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                 //orders
-                .antMatchers("/orders/setbackupemail/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/orders/getbackupemail").access("hasRole('ROLE_ADMIN')")
-                .antMatchers(HttpMethod.PATCH, "/orders/{\\d+}").access("hasRole('ROLE_COURIER') or hasRole('ROLE_DISPATCH')")
-                .antMatchers("/orders/courier/**").access("hasRole('ROLE_COURIER') or hasRole('ROLE_DISPATCH')")
-                .antMatchers("/orders/**").access("hasRole('ROLE_DISPATCH')")
-                // /companies
-                .antMatchers("/companies/**").access("hasRole('ROLE_DISPATCH')")
-                // /persons
-                //.antMatchers("/persons/**").access("hasRole('ROLE_DISPATCH')")
-                // /customers
-                .antMatchers("/customers/**").access("hasRole('ROLE_DISPATCH')")
-                // /addresses
-                .antMatchers("/addresses/**").access("hasRole('ROLE_DISPATCH')")
-                // /users
-                .antMatchers("/users").access("hasRole('ROLE_DISPATCH')")
-                // /roles
-                .antMatchers("/roles").access("hasRole('ROLE_DISPATCH') or hasRole('ROLE_COURIER')")
-                // /registration
-                //.antMatchers("/registration").access("hasRole('ROLE_ADMIN')")
-                // /reports
-                .antMatchers("/reports").access("hasRole('ROLE_ACCOUNT_MANAGER')")
-                //login
-                .antMatchers("/login").permitAll()
-                .and().csrf().disable().formLogin().failureHandler(authenticationFailureHandler)
-                .loginPage("/login")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
-    }
-    */
 
     /**
      * Password encoder. Bean for singleton.

@@ -10,6 +10,12 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Entry point for the /userdays API.
+ * - GET /userdays
+ * - POST /userdays
+ * - PUT /userdays/:id
+ */
 @RestController
 @RequestMapping("/userdays")
 public class UserDayController {
