@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<h1>Calorie Counter</h1>
+<h1>Registration</h1>
+
+<form id="reg" name="reg" th:action="@{/registration}" method="POST">
+    <input type="text" id="username" name="username" th:placeholder="Username" />
+    <input type="password" id="password" name="password" th:placeholder="Password" />
+
+    <button name="Register" value="Register" type="Submit" th:text="Register" />
+    <div th:if="${param.error}">
+        <p>Username already taken</p>
+    </div>
+    <div th:if="${param.success}">
+        Registration successful!
+    </div>
+</form>
+
+</body>
+</html>

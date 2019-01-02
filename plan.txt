@@ -1,0 +1,22 @@
+Ett system för att räkna kalorier. Man ska kunna:
+
+* Lägga in maträtter som har:
+- namn
+- mängd kalorier
+- mängd protein
+
+* Lägga in viktstatistik som har:
+- Datum
+- Vikt
+
+* Lägga in måltider som har:
+- Datum
+- Maträtt
+
+En Java Spring server ska köras med mySQL DBMS.
+
+Ett webinterface ska finnas för att skapa nya maträtter (lättast att skriva in text på en hemsida)
+
+En android (react native??) client för att stoppa in viktdata och måltider.
+
+Kommunikation sker via REST.

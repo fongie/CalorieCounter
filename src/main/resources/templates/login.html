@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+
+<body>
+
+<form th:action="@{/login}" method="POST">
+    <input type="text" id="username" name="username" th:placeholder="Username" />
+    <input type="password" th:placeholder="Password" id="password" name="password" />
+
+    <button name="Login" value="Login" type="Submit" th:text="Login" />
+    <div th:if="${param.error}">
+        <p>Incorrect user details, please try again.</p>
+    </div>
+</form>
+
+</body>
+</html>
