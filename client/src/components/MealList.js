@@ -11,37 +11,19 @@ class MealList extends Component {
             error: false,
         };
     }
-    deleteMeal = (id) => {
+    deleteMeal = (obj) => {
 
-        const url = server + api.meal + "/" + id;
+        const url = server + api.meal + "/" + obj.id;
         let header = Auth.getHeaders();
-        //header.append("Content-Type", "application/json");
 
         const fetchOptions = {
             method: 'DELETE',
             headers: header
         };
-        this.props.remover(id); //remove on uncommenting fetch
 
-        // fetch(url, fetchOptions)
-        //     .then(res => res.json())
-        //     .then(res => {
-        //         if (res.error) {
-        //             this.setState({
-        //                 error: true,
-        //                 errorMsg: res.message,
-        //             });
-
-        //             return;
-        //         } else {
-        //             this.setState({
-        //                 error: false,
-        //                 errorMsg: '',
-        //             });
-        //             this.props.remover(id);
-        //         }
-        //     })
-        //     .catch(error => console.error('Error:', error));
+        fetch(url, fetchOptions)
+            .then(res => this.props.remover(obj))
+            .catch(error => console.error('Error:', error));
     }
     render() {
         return (
@@ -53,7 +35,7 @@ class MealList extends Component {
                             key={obj.id}
                         >
                             {obj.food.name} : {obj.food.calories} : {obj.food.protein}
-                            <Button onClick={() => this.deleteMeal(obj.id)}>Delete</Button>
+                            <Button onClick={() => this.deleteMeal(obj)}>Delete</Button>
                         </ListGroupItem>
                     ) : null
                 }

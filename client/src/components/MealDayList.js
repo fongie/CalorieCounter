@@ -78,17 +78,16 @@ class MealDayList extends Component {
             currentDay: newdata
         });
     }
-    removeListItem = (id) => {
+    removeListItem = (obj) => {
         let newdata = this.state.currentDay;
-        console.log(this.state.currentDay.meals);
+        newdata.calories -= obj.food.calories;
+        newdata.protein -= obj.food.protein;
         let newlist = newdata.meals
-            .filter((item) => item.id !== id);
-        console.log(newlist);
+            .filter((item) => item.id !== obj.id);
         newdata.meals = newlist;
         this.setState({
             currentDay : newdata
         });
-        console.log(this.state.currentDay);
     }
     render() {
         return (
