@@ -15,8 +15,6 @@ Ett system för att räkna kalorier. Man ska kunna:
 
 En Java Spring server ska köras med mySQL DBMS.
 
-Ett webinterface ska finnas för att skapa nya maträtter (lättast att skriva in text på en hemsida)
-
-En android (react native??) client för att stoppa in viktdata och måltider.
+Ett webinterface ska finnas för att se och hantera/skapa information
 
 Kommunikation sker via REST.
