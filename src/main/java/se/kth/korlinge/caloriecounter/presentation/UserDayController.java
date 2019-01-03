@@ -16,6 +16,7 @@ import java.util.Map;
  * - POST /userdays
  * - PUT /userdays/:id
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/userdays")
 public class UserDayController {

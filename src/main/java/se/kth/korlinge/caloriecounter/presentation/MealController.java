@@ -16,6 +16,7 @@ import java.util.Map;
  * - POST /meals
  * - PUT /meals/:id
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/meals")
 public class MealController {
@@ -34,8 +35,13 @@ public class MealController {
       return mealService.addMeal(meal);
    }
 
+   @DeleteMapping("/{id}")
+   public void deleteMeal(@PathVariable int id, Principal principal) {
+      mealService.deleteMeal(id, principal.getName());
+   }
+
    @PutMapping("/{id}")
-   public Meal updateMeal(@RequestBody Map<String,Object> changes, @PathVariable int id) {
-      return mealService.updateMeal(id, changes);
+   public Meal updateMeal(@RequestBody Map<String,Object> changes, @PathVariable int id, Principal principal) {
+      return mealService.updateMeal(id, changes, principal.getName());
    }
 }

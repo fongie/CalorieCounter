@@ -16,6 +16,7 @@ import java.util.Map;
  * - POST /foods
  * - PUT /foods/:id
  */
+@CrossOrigin(allowCredentials = "true")
 @RestController
 @RequestMapping("/foods")
 public class FoodController {

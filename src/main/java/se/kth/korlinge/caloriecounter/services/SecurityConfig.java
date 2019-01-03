@@ -1,5 +1,6 @@
 package se.kth.korlinge.caloriecounter.services;
 
+import com.google.common.collect.ImmutableList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * Configuration class for Spring security.
@@ -20,9 +28,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoginService loginService;
 
+    @Autowired
+    private RESTAuthenticationEntryPoint authEntryPoint;
+    @Autowired
+    private RESTAuthenticationSuccessHandler authSuccessHandler;
+    @Autowired
+    private RESTAuthenticationFailureHandler authFailureHandler;
+
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
+              .cors()
+              .and()
               .csrf().disable()
               .authorizeRequests()
               .antMatchers("/login").permitAll()
@@ -30,13 +47,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               .antMatchers("/foods").authenticated()
               .antMatchers("/userdays").authenticated()
               .antMatchers("/meals").authenticated()
+              .antMatchers("/loggedin").authenticated()
+              .and()
+              .exceptionHandling()
+              .authenticationEntryPoint(authEntryPoint)
               .and()
               .formLogin()
+              .successHandler(authSuccessHandler)
+              .failureHandler(authFailureHandler)
               .loginPage("/login")
               .usernameParameter("username")
               .passwordParameter("password")
               .and()
-              .logout();
+              .httpBasic()
+              .and()
+              .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 
     }
 
@@ -71,5 +96,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
-
+    //because i got problems with CORS not being allowed on dev machine..
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        final CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(ImmutableList.of("*"));
+        configuration.setAllowedMethods(ImmutableList.of("HEAD",
+              "GET", "POST", "PUT", "DELETE", "PATCH"));
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type"));
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }

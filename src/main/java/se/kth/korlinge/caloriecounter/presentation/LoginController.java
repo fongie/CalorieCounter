@@ -5,18 +5,21 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import se.kth.korlinge.caloriecounter.services.LoginService;
 
+import java.security.Principal;
+
 /**
  * Entry point for authentication API
  */
+@CrossOrigin
 @RestController
 public class LoginController {
 
    @Autowired
    private LoginService loginService;
 
-   @GetMapping("/hello")
-   public String hello() {
-      return "hello";
+   @GetMapping("/loggedin")
+   public String loggedin(Principal principal) {
+      return principal.getName();
    }
 
    @GetMapping("/webhome")

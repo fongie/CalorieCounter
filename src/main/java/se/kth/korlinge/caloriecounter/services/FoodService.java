@@ -11,7 +11,6 @@ import se.kth.korlinge.caloriecounter.repositories.UserRepository;
 
 import java.util.*;
 
-//TODO transacstional?
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 @Service
 public class FoodService {

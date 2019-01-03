@@ -38,13 +38,23 @@ public class MealService {
       return meals;
    }
 
+   public void deleteMeal(int id, String username) throws AccessViolationException {
+      try {
+         Meal mealToDelete = mealRepository.findById(id).get();
+         checkForAccessViolation(mealToDelete, username);
+         mealRepository.delete(mealToDelete);
+      } catch (NoSuchElementException e) {
+         throw new EntityDoesNotExistException("meal", id);
+      }
+   }
    public Meal addMeal(MealPostRequest mealPostRequest) {
       Meal meal = convertIntoEntity(mealPostRequest);
       return mealRepository.save(meal);
    }
-   public Meal updateMeal(int id, Map<String,Object> changes) {
+   public Meal updateMeal(int id, Map<String,Object> changes, String username) throws EntityDoesNotExistException, AccessViolationException {
       try {
          Meal meal = mealRepository.findById(id).get();
+         checkForAccessViolation(meal, username);
          changes.forEach(
                (key,value) -> {
                   validateUpdateKey(key);
@@ -65,6 +75,12 @@ public class MealService {
          throw new EntityDoesNotExistException("meal", id);
       }
    }
+   private void checkForAccessViolation(Meal meal, String username) throws AccessViolationException {
+      if (!meal.getUserDay().getUser().getUsername().equals(username)) {
+         throw new AccessViolationException();
+      }
+   }
+
    private void validateUpdateKey(String key) {
       List<String> allowedKeys = new ArrayList<>();
       allowedKeys.add("food");
