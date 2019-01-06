@@ -5,6 +5,9 @@ import NewWeightForm from '../components/NewWeightForm';
 import Auth from '../auth.js';
 import { server, api } from '../config.json';
 
+/**
+ * A page to show weight/date statistics and enter new ones.
+ */
 class WeightPage extends Component {
     constructor(props) {
         super(props);

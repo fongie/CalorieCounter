@@ -3,6 +3,9 @@ import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import Auth from '../auth.js';
 import { server, api } from '../config.json';
 
+/**
+ * A list of meal items.
+ */
 class MealList extends Component {
     constructor(props) {
         super(props);

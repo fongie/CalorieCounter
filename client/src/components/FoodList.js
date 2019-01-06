@@ -1,6 +1,9 @@
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
+/**
+ * A list of food items.
+ */
 const FoodList = (props) => {
     //console.log(props.data[0]);
     return (

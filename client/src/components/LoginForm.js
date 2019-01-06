@@ -3,6 +3,9 @@ import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { server, api } from '../config.json';
 import Auth from '../auth.js';
 
+/**
+ * A log-in form and its related logic. If user is logged in, the form is hidden. If not, the form is shown.
+ */
 class LoginForm extends Component {
     constructor(props) {
         super(props);
