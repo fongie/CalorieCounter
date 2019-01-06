@@ -5,6 +5,9 @@ import NewFoodForm from '../components/NewFoodForm';
 import { Button } from 'react-bootstrap';
 import Auth from '../auth.js';
 
+/**
+ * Page that concerns food (dishes). Shows all foods that a user has created, and lets him add new ones.
+ */
 class FoodPage extends Component {
     constructor(props) {
         super(props);

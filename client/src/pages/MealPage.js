@@ -3,6 +3,12 @@ import MealDayList from '../components/MealDayList';
 import Auth from '../auth.js';
 import { server, api } from '../config.json';
 
+/**
+ * A page that;
+ * - Shows a summary for each day with total values of calories and protein
+ * - Allows for viewing all meals for the day by clicking the day
+ * - Allows for creating and adding new meals to any day
+ */
 class MealPage extends Component {
     constructor(props) {
         super(props);
@@ -42,7 +48,7 @@ class MealPage extends Component {
                     }
                 }
 
-                    console.log(res)
+                    // console.log(res)
                 this.setState({
                     daydata: res
                 });
@@ -70,7 +76,7 @@ class MealPage extends Component {
                             return info;
                         }
                     );
-                    console.log(sortedInfo);
+                    // console.log(sortedInfo);
                     this.setState({
                         mealdata: res,
                         error: false,

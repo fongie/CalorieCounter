@@ -5,6 +5,9 @@ import { Modal, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import Auth from '../auth.js';
 import { server, api } from '../config.json';
 
+/**
+ * A list of days where meal data is contained. Component allows you to click a day and receive a modal with specific info on meals, and to add a new meal.
+ */
 class MealDayList extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +22,7 @@ class MealDayList extends Component {
         };
     }
     openModal = (obj) => {
-        this.setState({ 
+        this.setState({
             showModal : true,
             currentDay: obj
         });
@@ -60,7 +63,7 @@ class MealDayList extends Component {
             });
     }
     toggleNew = () => {
-        if (!this.state.foods) { //only fetch once
+        if (!this.state.foods) { //only fetch once to avoid massive api calls
             this.fetchFoods();
         }
         if (this.state.showNewMeal) {

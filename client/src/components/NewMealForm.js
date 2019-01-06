@@ -3,6 +3,9 @@ import { ControlLabel, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { server, api } from '../config.json';
 import Auth from '../auth.js';
 
+/**
+ * A form that allows you to enter details for a new meal.
+ */
 class NewWeightForm extends Component {
     constructor(props) {
         super(props);

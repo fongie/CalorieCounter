@@ -5,6 +5,9 @@ import Auth from '../auth.js';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
+/**
+ * A form component to add a new weight/date statistic.
+ */
 class NewWeightForm extends Component {
     constructor(props) {
         super(props);

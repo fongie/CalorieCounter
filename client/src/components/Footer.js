@@ -1,5 +1,8 @@
 import React from 'react';
 
+/**
+ * The global Footer for the application.
+ */
 const Footer = () => {
     return (
         <div>

@@ -2,6 +2,9 @@ import React from 'react';
 import { Navbar, Nav, NavItem, PageHeader } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+/**
+ * The global Header for the application.
+ */
 const Header = () => {
     return (
         <PageHeader>

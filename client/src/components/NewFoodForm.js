@@ -3,7 +3,9 @@ import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { server, api } from '../config.json';
 import Auth from '../auth.js';
 
-//TODO validate protein and calorie fields
+/**
+ * A form to enter details for a new Food
+ */
 class NewFoodForm extends Component {
     constructor(props) {
         super(props);

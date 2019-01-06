@@ -9,6 +9,9 @@ import MealPage from './pages/MealPage';
 import WeightPage from './pages/WeightPage';
 import Home from './pages/Home';
 
+/**
+ * Starting point for the React app, where routes are set.
+ */
 ReactDOM.render(
     <Router>
     <App>
