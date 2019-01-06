@@ -9,6 +9,8 @@ import java.security.Principal;
 
 /**
  * Entry point for authentication API
+ * - POST /login (handled by Spring Security entirely)
+ * - GET /loggedin
  */
 @CrossOrigin
 @RestController
@@ -17,25 +19,22 @@ public class LoginController {
    @Autowired
    private LoginService loginService;
 
+   /**
+    * Return the currently logged in username.
+    * @param principal
+    * @return
+    */
    @GetMapping("/loggedin")
    public String loggedin(Principal principal) {
       return principal.getName();
    }
 
-   @GetMapping("/webhome")
-   public ModelAndView getWebHome() {
-      ModelAndView modelAndView = new ModelAndView();
-      modelAndView.setViewName("home");
-      return modelAndView;
-   }
-
-   @GetMapping({"/", "/login"})
-   public ModelAndView getStartPage() {
-      ModelAndView modelAndView = new ModelAndView();
-      modelAndView.setViewName("login");
-      return modelAndView;
-   }
-
+   /**
+    * Browse to the /registration page to register new users. This could be turned into a REST API aswell but since I intend to use this app myself and host it online but not allow the public to register,
+    * I will keep it this way and turn off this method after deploying and registering my user.
+    * In short: not for use in production
+    * @return
+    */
    @GetMapping("/registration")
    public ModelAndView registration() {
       ModelAndView modelAndView = new ModelAndView();
@@ -43,6 +42,12 @@ public class LoginController {
       return modelAndView;
    }
 
+   /**
+    * Register a new user. See doc for GET /registration.
+    * @param username
+    * @param password
+    * @return
+    */
    @PostMapping("/registration")
    public ModelAndView register(String username, String password) {
       ModelAndView modelAndView = new ModelAndView();

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Send 401 on trying to access forbidden
+ * Lets us send Code 401 on trying to access forbidden resources (when not logged in).
  */
 @Component
 public class RESTAuthenticationEntryPoint implements AuthenticationEntryPoint {

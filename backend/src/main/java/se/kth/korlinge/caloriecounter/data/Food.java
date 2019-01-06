@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Represents a row in the food table in the database.
+ */
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Food {
@@ -19,7 +22,7 @@ public class Food {
    private Integer calories;
    private Integer protein;
 
-   @JsonIgnore
+   @JsonIgnore //when JSON is returned, don't include the user in the food items. It is redundant
    @NotNull
    @ManyToOne
    private User user;

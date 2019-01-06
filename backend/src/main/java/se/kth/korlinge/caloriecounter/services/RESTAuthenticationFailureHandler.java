@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * On failing authentication
+ * Called on failing authentication.
  */
 @Component
 public class RESTAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {

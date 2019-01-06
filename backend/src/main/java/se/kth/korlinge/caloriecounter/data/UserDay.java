@@ -7,6 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
+/**
+ * Represents a row in the user_day table in the database.
+ */
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDay {

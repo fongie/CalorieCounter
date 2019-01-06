@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Represents a row in the user table in the database.
+ */
 @Entity
 @Table(name = "user")
 public class User {

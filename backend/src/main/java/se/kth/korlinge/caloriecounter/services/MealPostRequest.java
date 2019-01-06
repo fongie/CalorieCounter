@@ -4,7 +4,7 @@ package se.kth.korlinge.caloriecounter.services;
 import java.sql.Date;
 
 /**
- * Represents a POST request to create a new UserDay entity
+ * Represents a POST request to create a new Meal entity
  */
 public class MealPostRequest {
    private int food;

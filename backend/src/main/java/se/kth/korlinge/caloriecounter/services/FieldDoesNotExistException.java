@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
       import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Exception when trying to use a field in an entity which does not exist.
+ * Exception when trying to use a field in an entity which does not exist or is forbidden to access.
  */
 @ResponseStatus(value=HttpStatus.BAD_REQUEST)
 public class FieldDoesNotExistException extends RuntimeException {

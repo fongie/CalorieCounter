@@ -15,6 +15,9 @@ import se.kth.korlinge.caloriecounter.repositories.UserRepository;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 
+/**
+ * Service that handles logic concerning the authentication.
+ */
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 @Service
 public class LoginService implements UserDetailsService {
@@ -31,7 +34,7 @@ public class LoginService implements UserDetailsService {
     * Called by spring security on login attempt. We dont use roles so roles are empty.
     * @param username
     * @return
-    * @throws UsernameNotFoundException
+    * @throws UsernameNotFoundException When trying to log in with an unknown username.
     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

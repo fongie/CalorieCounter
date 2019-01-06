@@ -1,6 +1,5 @@
 package se.kth.korlinge.caloriecounter.services;
 
-import se.kth.korlinge.caloriecounter.data.User;
 
 import java.sql.Date;
 

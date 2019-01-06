@@ -11,6 +11,9 @@ import se.kth.korlinge.caloriecounter.repositories.UserRepository;
 
 import java.util.*;
 
+/**
+ * Service that handles logic concerning the /userdays API and userday entities.
+ */
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 @Service
 public class UserDayService {
@@ -19,32 +22,38 @@ public class UserDayService {
    @Autowired
    private UserRepository userRepository;
 
-   UserDay getUserDay(String username, java.sql.Date date) {
-      User user = userRepository.findByUsername(username);
-      Optional<UserDay> userDay = userDayRepository.findByUserAndDate(user, date);
-      if (!userDay.isPresent()) {
-         throw new EntityDoesNotExistException("userDay", date);
-      }
-      return userDay.get();
-   }
+   /**
+    * Get all user days for a certain user.
+    * @param username
+    * @return
+    */
    public List<UserDay> getAllUserDays(String username) {
       List<UserDay> userDays = new ArrayList<>();
       User user = userRepository.findByUsername(username);
       userDayRepository.findByUser(user).forEach(userDays::add);
       return userDays;
    }
-   //check that date doesnt already exist for this user
-   private void validateUserDay(User user, java.sql.Date date) {
-      Optional<UserDay> userDay = userDayRepository.findByUserAndDate(user, date);
-      if (userDay.isPresent()) {
-         throw new AlreadyExistsException("userDay", "date", date);
-      }
-   }
-   public UserDay addUserDay(UserDayPostRequest userDayPostRequest) {
+
+   /**
+    * Add a new user day.
+    * @param userDayPostRequest
+    * @return
+    * @throws AlreadyExistsException If the specified date already exists for this user.
+    */
+   public UserDay addUserDay(UserDayPostRequest userDayPostRequest) throws AlreadyExistsException {
       UserDay userDay = convertIntoEntity(userDayPostRequest);
       return userDayRepository.save(userDay);
    }
-   public UserDay updateUserDay(int id, Map<String,Object> changes) {
+
+   /**
+    * Change one or more attributes for a user day.
+    * @param id
+    * @param changes
+    * @return
+    * @throws FieldDoesNotExistException If trying to change a field that does not exist or is forbidden.
+    * @throws EntityDoesNotExistException If the entity does not exist.
+    */
+   public UserDay updateUserDay(int id, Map<String,Object> changes) throws FieldDoesNotExistException, EntityDoesNotExistException {
       try {
          UserDay userDay = userDayRepository.findById(id).get();
          changes.forEach(
@@ -62,7 +71,21 @@ public class UserDayService {
          throw new EntityDoesNotExistException("userDay", id);
       }
    }
-   private void validateUpdateKey(String key) {
+   /**
+    * Get a userday by its username and a date.
+    * @param username
+    * @param date
+    * @return
+    */
+   UserDay getUserDay(String username, java.sql.Date date) throws EntityDoesNotExistException {
+      User user = userRepository.findByUsername(username);
+      Optional<UserDay> userDay = userDayRepository.findByUserAndDate(user, date);
+      if (!userDay.isPresent()) {
+         throw new EntityDoesNotExistException("userDay", date);
+      }
+      return userDay.get();
+   }
+   private void validateUpdateKey(String key) throws FieldDoesNotExistException {
       List<String> allowedKeys = new ArrayList<>();
       allowedKeys.add("weight");
       allowedKeys.add("date");
@@ -70,7 +93,7 @@ public class UserDayService {
          throw new FieldDoesNotExistException("userDay", key);
       }
    }
-   private UserDay convertIntoEntity(UserDayPostRequest userDayPostRequest) {
+   private UserDay convertIntoEntity(UserDayPostRequest userDayPostRequest) throws AlreadyExistsException {
       Optional<java.sql.Date> dateFromPost = Optional.ofNullable(userDayPostRequest.getDate());
 
       java.sql.Date date = dateFromPost.isPresent() ? dateFromPost.get() : getCurrentDate();
@@ -85,6 +108,13 @@ public class UserDayService {
             date
             );
       return userDay;
+   }
+   //check that date doesnt already exist for this user
+   private void validateUserDay(User user, java.sql.Date date) throws AlreadyExistsException {
+      Optional<UserDay> userDay = userDayRepository.findByUserAndDate(user, date);
+      if (userDay.isPresent()) {
+         throw new AlreadyExistsException("userDay", "date", date);
+      }
    }
    private java.sql.Date getCurrentDate() {
       TimeZone tz = TimeZone.getTimeZone("Europe/Stockholm"); //note have to change for international customers

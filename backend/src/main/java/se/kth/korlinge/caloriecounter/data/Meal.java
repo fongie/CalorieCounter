@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Represents a row in the meal table in the database.
+ */
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Meal {

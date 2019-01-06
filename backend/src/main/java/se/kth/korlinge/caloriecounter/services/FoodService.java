@@ -11,6 +11,9 @@ import se.kth.korlinge.caloriecounter.repositories.UserRepository;
 
 import java.util.*;
 
+/**
+ * Service that handles logic concerning the /foods API and food entities.
+ */
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 @Service
 public class FoodService {
@@ -19,24 +22,37 @@ public class FoodService {
    @Autowired
    private UserRepository userRepository;
 
-   Food getFood(int id) {
-      Optional<Food> food = foodRepository.findById(id);
-      if (!food.isPresent()) {
-         throw new EntityDoesNotExistException("food", id);
-      }
-      return food.get();
-   }
+   /**
+    * Get all food entities for a certain username.
+    * @param username
+    * @return
+    */
    public List<Food> getAllFoods(String username) {
       List<Food> foods = new ArrayList<>();
       User user = userRepository.findByUsername(username);
       foodRepository.findByUser(user).forEach(foods::add);
       return foods;
    }
+
+   /**
+    * Add a food entity.
+    * @param foodPostRequest
+    * @return
+    */
    public Food addFood(FoodPostRequest foodPostRequest) {
       Food food = convertIntoEntity(foodPostRequest);
       return foodRepository.save(food);
    }
-   public Food updateFood(int id, Map<String,Object> changes) {
+
+   /**
+    * Change a food entity.
+    * @param id
+    * @param changes
+    * @return
+    * @throws FieldDoesNotExistException If trying to change an attribute that doesa not exist (or is forbidden to change).
+    * @throws EntityDoesNotExistException If the entity does not exist.
+    */
+   public Food updateFood(int id, Map<String,Object> changes) throws FieldDoesNotExistException, EntityDoesNotExistException {
       try {
          Food food = foodRepository.findById(id).get();
          changes.forEach(
@@ -57,7 +73,21 @@ public class FoodService {
          throw new EntityDoesNotExistException("food", id);
       }
    }
-   private void validateUpdateKey(String key) {
+   /**
+    * Get a food by its id.
+    * @param id
+    * @throws EntityDoesNotExistException If entity does not exist.
+    * @return
+    */
+   Food getFood(int id) throws EntityDoesNotExistException {
+      Optional<Food> food = foodRepository.findById(id);
+      if (!food.isPresent()) {
+         throw new EntityDoesNotExistException("food", id);
+      }
+      return food.get();
+   }
+
+   private void validateUpdateKey(String key) throws FieldDoesNotExistException {
       List<String> allowedKeys = new ArrayList<>();
       allowedKeys.add("name");
       allowedKeys.add("calories");

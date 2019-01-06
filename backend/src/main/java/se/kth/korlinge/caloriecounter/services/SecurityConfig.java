@@ -14,9 +14,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * Configuration class for Spring security.
@@ -35,6 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private RESTAuthenticationFailureHandler authFailureHandler;
 
+    /**
+     * Configures Spring Security. Configured to use http basic security where user and pass are sent in every request, a method which is not very safe and should not be used in production.
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
@@ -87,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Set authenticator
+     * Set authenticator to our authenticator.
      * @param auth
      * @throws Exception
      */
@@ -96,7 +98,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
-    //because i got problems with CORS not being allowed on dev machine..
+    //because i had problems with CORS not being allowed on dev machine..
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
